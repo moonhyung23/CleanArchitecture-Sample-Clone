@@ -16,6 +16,7 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     //ViewModel에 UseCase를 넣는다.
+    //invoke fun이 정의됨
     private val getGithubReposUseCase: GetGithubReposUseCase,
 ) : BaseViewModel() {
     //리파지토리의 상태를 관찰
@@ -25,6 +26,7 @@ class MainViewModel @Inject constructor(
 
     fun getGithubRepositories(owner: String) {
         //UseCase를 통해 API 통신을 해서 List를 반환한다.
+        //UseCase를 사용하기위해 invoke fun을 사용함.
         getGithubReposUseCase(owner, viewModelScope) {
             _githubRepositories.value = it
         }

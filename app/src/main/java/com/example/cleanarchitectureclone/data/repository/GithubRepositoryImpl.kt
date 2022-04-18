@@ -18,7 +18,12 @@ class GithubRepositoryImpl @Inject constructor(
     //때문에 별도의 변환과정없이(GithubRepoData를 구현 X) 변환이 가능하다.
     private val githubRemoteSource: GithubRemoteSource,
 ) : GithubRepository {
+    //ViewModel에서 Domain계층의 getRepos 추상함수를 실행시 구현체인 override 함수를 Data 계층에서 실행
+    //핵심: 인터페이스를 통해 Data 계층과 Presentation 계층간의 접근이 가능함.
     override suspend fun getRepos(owner: String): List<GithubRepoData> {
+        //Data 계층의 DataSource로 서버 API 통신관련 로직을 수행
+        //-DataSource의 추상함수인 getRepos를 실행하면 Data 계층에 있는 구현체를 실행함으로써
+        //-서버 API 통신 수행
         return githubRemoteSource.getRepos(owner)
     }
 }

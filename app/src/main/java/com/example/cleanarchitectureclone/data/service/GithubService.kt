@@ -9,6 +9,6 @@ import retrofit2.http.Path
 interface GithubService {
     @GET("users/{owner}repos")
     //Path(파마미터 이름)
-    suspend fun getRepos(@Path("owner") owner: String)
+    suspend fun getReposService(@Path("owner") owner: String)
             : List<GithubRepoData>
 }
