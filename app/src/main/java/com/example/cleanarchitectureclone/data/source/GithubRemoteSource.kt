@@ -9,7 +9,6 @@ interface GithubRemoteSource {
 }
 
 
-//
 class GithubRemoteSourceImpl @Inject constructor(
     private val githubService: GithubService,
 ) : GithubRemoteSource {
@@ -17,5 +16,4 @@ class GithubRemoteSourceImpl @Inject constructor(
     override suspend fun getRepos(owner: String): List<GithubRepoData> {
         return githubService.getRepos(owner)
     }
-
 }

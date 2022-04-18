@@ -20,10 +20,12 @@ class MainViewModel @Inject constructor(
 ) : BaseViewModel() {
     //리파지토리의 상태를 관찰
     private val _githubRepositories = MutableLiveData<List<GithubRepoData>>()
+
     val githubRepositoriesData: LiveData<List<GithubRepoData>> = _githubRepositories
 
-    fun getGithubRepositories(owner: String){
-        getGithubReposUseCase(owner, viewModelScope){
+    fun getGithubRepositories(owner: String) {
+        //UseCase를 통해 API 통신을 해서 List를 반환한다.
+        getGithubReposUseCase(owner, viewModelScope) {
             _githubRepositories.value = it
         }
     }
