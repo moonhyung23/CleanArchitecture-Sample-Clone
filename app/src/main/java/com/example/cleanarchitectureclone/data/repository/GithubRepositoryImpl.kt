@@ -16,6 +16,7 @@ class GithubRepositoryImpl @Inject constructor(
     //GithubRemoteSource의 getRepos함수는 List<GithubRepoData>를
     // 반환하지만 GithubRepoData는 Domain 계층의 GithubRepo를 구현하고 있기
     //때문에 별도의 변환과정없이(GithubRepoData를 구현 X) 변환이 가능하다.
+    /* 의존성 주입 추상객체 */
     private val githubRemoteSource: GithubRemoteSource,
 ) : GithubRepository {
     //ViewModel에서 Domain계층의 getRepos 추상함수를 실행시 구현체인 override 함수를 Data 계층에서 실행
@@ -24,6 +25,7 @@ class GithubRepositoryImpl @Inject constructor(
         //Data 계층의 DataSource로 서버 API 통신관련 로직을 수행
         //-DataSource의 추상함수인 getRepos를 실행하면 Data 계층에 있는 구현체를 실행함으로써
         //-서버 API 통신 수행
+        /*API 통신을 할지, Local 통신을 할지 선택 */
         return githubRemoteSource.getRepos(owner)
     }
 }

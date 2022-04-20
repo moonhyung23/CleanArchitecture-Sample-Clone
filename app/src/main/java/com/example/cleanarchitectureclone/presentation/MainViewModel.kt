@@ -20,8 +20,10 @@ class MainViewModel @Inject constructor(
     private val getGithubReposUseCase: GetGithubReposUseCase,
 ) : BaseViewModel() {
     //리파지토리의 상태를 관찰
+    //쓰기, 읽기, 수정 가능
     private val _githubRepositories = MutableLiveData<List<GithubRepoData>>()
 
+    //읽기만 가능
     val githubRepositoriesData: LiveData<List<GithubRepoData>> = _githubRepositories
 
     fun getGithubRepositories(owner: String) {
