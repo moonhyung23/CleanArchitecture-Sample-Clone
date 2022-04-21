@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 
 
 //UseCase로 담아서 사용하기 위해 inVoke fun으로 정의함.
-/*  GithubRepository DI(의존성 주입)받음. */
 class GetGithubReposUseCase(private val githubRepository: GithubRepository) {
     //invoke fun -> 클래스 객체 생성시 바로 실행? (확실X)
     operator fun invoke(
