@@ -6,26 +6,18 @@ import com.example.cleanarchitectureclone.domain.repository.GithubRepository
 import javax.inject.Inject
 
 
-//Domain 계층의 GithubRepository를 구현
-//GithubRemoteSource 생성자를 주입받아 객체를 가져온다.
-
-//만약 API를 데이터 베이스에서 저장한 뒤 로드하는
-//기능을 넣고 싶다면 생성자로 GithubLocalSource를 주입받아
-//유사하게 구현하면 된다.
+// Domain 계층의 Repository 인터페이스를 구현한 구현체
+// Data 계층의 수정이 생겨도 Domain 계층에는 수정이 생기지 않음
 class GithubRepositoryImpl @Inject constructor(
-    //GithubRemoteSource의 getRepos함수는 List<GithubRepoData>를
-    // 반환하지만 GithubRepoData는 Domain 계층의 GithubRepo를 구현하고 있기
-    //때문에 별도의 변환과정없이(GithubRepoData를 구현 X) 변환이 가능하다.
-    /* 의존성 주입 추상객체 */
+    //외부 API 통신을 하기 위한 인터페이스
     private val githubRemoteSource: GithubRemoteSource,
-) : GithubRepository {
-    //ViewModel에서 Domain계층의 getRepos 추상함수를 실행시 구현체인 override 함수를 Data 계층에서 실행
-    //핵심: 인터페이스를 통해 Data 계층과 Presentation 계층간의 접근이 가능함.
+    /* 내부 DB(Room, Realm)통신을 하고 싶으면 추가적으로 인터페이스를 정의해도됨 */
+
+    ) : GithubRepository {
+    //Domain 계층의 Repository 인터페이스의 추상메서드를 Override 했음.
     override suspend fun getRepos(owner: String): List<GithubRepoData> {
-        //Data 계층의 DataSource로 서버 API 통신관련 로직을 수행
-        //-DataSource의 추상함수인 getRepos를 실행하면 Data 계층에 있는 구현체를 실행함으로써
-        //-서버 API 통신 수행
-        /*API 통신을 할지, Local 통신을 할지 선택 */
+        //외부 API 통신을 실행하기 위한 인터페이스의 추상메서드
         return githubRemoteSource.getRepos(owner)
     }
+
 }

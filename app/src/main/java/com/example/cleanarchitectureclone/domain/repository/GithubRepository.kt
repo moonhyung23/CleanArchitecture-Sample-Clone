@@ -3,9 +3,9 @@ package com.example.cleanarchitectureclone.domain.repository
 import com.example.cleanarchitectureclone.domain.model.GithubRepoData
 
 
-
+//UseCase에서 주입 받는 Repository 인터페이스
 interface GithubRepository {
-    //GitHub의 Repo목록을 가져오기 위한 리스트 반환
-    //Retofit으로 API 통신을 통해 List를 가져온다.
+    //UseCase에서 실행되는 추상 메서드
+    //구현체는 Data 계층의 RepositoryImpl클래스에 있음
     suspend fun getRepos(owner: String): List<GithubRepoData>
 }
